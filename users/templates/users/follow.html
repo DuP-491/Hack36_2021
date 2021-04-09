@@ -1,0 +1,11 @@
+{% if user.is_authenticated %}
+<form action = "{% url 'follow'%}" method = "post">
+  {% csrf_token %}
+  {% if not is_followed %}
+<button name = "post_id" id = "follow" class = "btn-primary" value = "{{object.user}}" type = "submit"> Follow</button>
+ {% else %}
+ <button name = "post_id" id = "follow" class = "btn-danger" value = "{{object.user}}" type = "submit"> UnFollow</button>
+ {% endif %}
+</form>
+{% else %}
+{% endif %}
