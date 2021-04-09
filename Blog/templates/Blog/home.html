@@ -1,18 +1,80 @@
-{%  extends "Blog/base.html" %}
+{% extends "Blog/base.html" %}
+{% load static %}
 {% block content %}
-<body>
-	{% for post in posts %}
-	<article class="media content-section">
-				<img class = "rounded-circle article-img" src = "{{post.author.profile.image.url}}">
-  <div class="media-body">
-    <div class="article-metadata">
-      <a class="mr-2" href="{% url 'profile' post.author %}">{{ post.author }}</a>
-      <small class="text-muted">{{ post.date_posted }}</small>
+
+    <style>
+
+        #main-container {
+            padding: 4%;
+        }
+
+        .member {
+            padding: 30px;
+        }
+
+
+        #trendingPost {
+        {#width: 100vw !important;#}{#height:60vh !important;#}
+        }
+
+        .tt {
+            max-width: 40vw !important;
+        }
+
+
+    </style>
+    <div id="trendingPost" class="row">
+        {#        <div class="col s12 ">#}
+
+        <div id="trendingPost" class="carousel carousel-slider">
+            {% for post in posts %}
+                <div class="tt carousel-item ">
+
+                    <div class="">
+                        {% include 'snippets/courseCard.html' %}
+                    </div>
+
+                </div>
+            {% endfor %}
+
+        </div>
+
+        {#        </div>#}
     </div>
-    <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-    <p class="article-content">{{ post.content }}</p>
-  </div>
-</article>
-	{% endfor %}
-</body>
+    <div class="container">
+        <div id="recentPost" class="row">
+            <div class="col s12">
+                <h1>Recent Courses</h1>
+            </div>
+            {% for post in posts %}
+                <div class="col s12 l4">
+                    {% include 'snippets/courseCard.html' %}
+                </div>
+            {% endfor %}
+
+        </div>
+        <div id="New Post" class="row">
+            <div class="col s12">
+                <h1>New Courses</h1>
+            </div>
+            {% for post in posts %}
+                <div class="col s12 l4">
+                    {% include 'snippets/courseCard.html' %}
+                </div>
+            {% endfor %}
+
+
+        </div>
+    </div>
 {% endblock content %}
+{% block script %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $('#trendingPost').carousel({
+                fullWidth: false
+            });
+        });
+    </script>
+
+{% endblock script %}
