@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'Blog.apps.BlogConfig',
     'users.apps.UsersConfig',
     'crispy_forms',
+    'materializecssform',
 ]
 
 MIDDLEWARE = [
