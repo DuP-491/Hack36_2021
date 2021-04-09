@@ -1,0 +1,18 @@
+{% load static %}
+<div class=" ">
+    <div class="parallax-container">
+        <style media="screen">
+            .parallax-container {
+                height: 40vh;
+            }
+        </style>
+        <div class="parallax">
+            <img src="{% static 'csgo.jpg' %}" alt="" class="responsive-img">
+        </div>
+        <script>
+            $(document).ready(function(){
+    $('.parallax').parallax();
+  });
+        </script>
+    </div>
+</div>
