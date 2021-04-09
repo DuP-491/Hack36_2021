@@ -1,11 +1,30 @@
 {%  extends "Blog/base.html" %}
+
 {% load crispy_forms_tags %}
+{% load static %}
 
 {% block content %}
-<div class="border-top pt-3">
-  <h2> Logged Out Successfully </h2>
-			<small class="text-muted">
+    <style media="screen">
+    body{
+        background-image: url({% static 'csgo.jpg' %});
+    }
+    #logoutMessage{
+        min-height: 60vh;
+
+    }
+
+</style>
+<div id="logoutMessage" class="  container border-top pt-3 center">
+    <div class="blackShade1trans card">
+        <div class="content">
+            <h2 class="thinText3 white-text"> Logged Out Successfully </h2>
+        </div>
+        <small class="text-muted">
 				<a href="{% url 'login' %}"> Log In Again </a>
 			</small>
-		</div>
+    </div>
+
+
+</div>
+
 {% endblock content %}

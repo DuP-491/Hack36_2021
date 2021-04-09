@@ -90,3 +90,27 @@
 /*.account-heading {*/
 /*  font-size: 2.5rem;*/
 /*}*/
+.blackShade1 {
+    background-color: rgb(32, 34, 37);
+}
+
+.blackShade2 {
+    background-color: rgb(54, 57, 63);
+}
+
+.blackShade3 {
+    background-color: rgb(30, 30, 30);
+}
+
+.blackShade4 {
+    background-color: rgb(24, 24, 26);
+
+}
+
+.blackShade5 {
+    background-color: rgb(14, 14, 16);
+}
+
+.blackShade1trans {
+    background: rgba(32, 34, 37, 0.5);
+}
