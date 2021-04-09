@@ -1,15 +1,157 @@
 {% extends "Blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{user.profile.image.url}}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ user.username }}</h2>
-          <p class="text-secondary">{{ user.email }}</p>
+{#    <div class="content-section">#}
+{#        <div class="media">#}
+{#            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">#}
+{#            <div class="media-body">#}
+{#                <h2 class="account-heading">{{ user.username }}</h2>#}
+{#                <p class="text-secondary">{{ user.email }}</p>#}
+{#            </div>#}
+{#        </div>#}
+{#        <div class="content-section">#}
+            {#    		<form method="POST" enctype="multipart/form-data">#}
+            {#    			{% csrf_token %}#}
+            {#    			<fieldset class="form-group">#}
+            {#    				{{uform|crispy}}#}
+            {#            {{pform}}#}
+            {#    			</fieldset>#}
+            {#    			<div class="form-group">#}
+            {#    			<button class="btn btn-outline-info" type="submit"> Update </button>#}
+            {#    			</div>#}
+            {#    		</form>#}
+{#        </div>#}
+{#    </div>#}
+    {% include 'snippets/profilePageParallax.html' %}
+    <!-- services / tabs -->
+    <style>
+        #modal11 {
+            width: 80vw;
+            height: 80vh;
+            overflow-y: scroll;
+        }
+
+        @media screen and (min-width: 600px) {
+            #modal11 {
+                width: 80vw;
+                height: 80vh;
+                overflow-y: hidden;
+            }
+        }
+    </style>
+    <div id="modal11" class=" modal">
+        <div id="modal11content" class="modal-content">
+            <h4>Modal Header</h4>
+            <p>A bunch of text</p>
         </div>
-      </div>
-      <div class="content-section">
+    </div>
+    <div class="row   my ">
+        {#    <div class=" col s12">#}
+        {#        <div class=" container center">#}
+        {#            <div class="responsive-img">#}
+        {#                <img src="{{ userd.profile.image.url }}" class="" alt="">#}
+        {#            </div>#}
+        {#            <div class="divider"></div>#}
+        {#        </div>#}
+        {#    </div>#}
+        <div class="col s12 l3 teal">
+
+
+            <h4 class=" center deep-purple-text text-darken-1"> @{{ userd.username }}</h4>
+            <!-- <h4 class="blue-text text-darken-4">User Info</h4> -->
+            <div class="thintext4 white-text flow-text">
+                <p class=" thintext3 white-text flow-text">{{ userd.first_name }} {{ userd.last_name }}</p>
+                <p>{{ userd.profile.get_gender_display }} </p>
+                <p>Registration Number:{{ userd.regnum }}</p>
+                <p> From: {{ userd.profile.country }} </p>
+
+                <p> Bio:{{ userd.profile.bio }} </p>
+            </div>
+
+            {% if user.is_authenticated %}
+                {% if userd == user %}
+
+                    <span><a href="#profileEditModal"
+                             class="btn btn-large btn-floating orange modal-trigger right "> <i
+                            class="material-icons">settings</i></a></span>
+                {% endif %}
+                <span><a href="#followerFollowing" class="btn btn-small orange modal-trigger">
+                                Followers/Followings</a></span>
+
+                <span><a id="followThisDudeButton" class="btn btn-small orange modal-trigger">
+                                FOLLOW</a></span>
+
+                <span><a id="unfollowThisDudeButton" class="btn btn-small orange modal-trigger">
+                                UNFOLLOW</a></span>
+            {% endif %}
+
+            <div class="divider"></div>
+        </div>
+        <div class="  col s12 l8  ">
+            <div class="row">
+                <div class="col s12">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a href="#test1">Test 1</a></li>
+                        <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
+                        <li class="tab col s3 "><a href="#test3">Disabled Tab</a></li>
+                        <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                    </ul>
+                </div>
+                {#            <style >#}
+                {#                .goBack{#}
+                {#                    z-index: -1000;#}
+                {#                }#}
+                {##}
+                {#            </style>#}
+                <div id="test1" class=" goBack col s12">Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test
+                    1Test 1Test
+                    1Test 1Test 1Test 1
+                </div>
+                <div id="test2" class="goBack col s12">Test 2Test 2Test 2Test 2Test 2Test 2Test 2Test 2Test 2Test 2Test
+                    2Test 2Test
+                    2Test 2Test 2Test 2Test 2Test 2
+                </div>
+                <div id="test3" class="goBack col s12">Test 3Test 3Test 3Test 3Test 3Test 3Test 3Test 3Test 3Test 3Test
+                    3Test 3Test
+                    3Test 3Test 3Test 3Test 3Test 3Test 3Test 3
+                </div>
+                <div id="test4" class="goBack col s12">Test 4Test 4Test 4Test 4Test 4Test 4Test 4Test 4Test 4Test 4Test
+                    4Test 4Test
+                    4Test 4Test 4Test 4Test 4
+                </div>
+            </div>
+
+            {#        <div class="row">#}
+            {#            <div class="col s12 l12">#}
+            {#                <h2 id="username" class="left white-text  ">{{ userd.first_name }} {{ userd.last_name }}</h2>#}
+            {##}
+            {#            </div>#}
+            {#        </div>#}
+
+            <!-- tabs -->
+            <div class="row">
+                <div class="col s10 l10 offset-s1 offset-l1 white-text ">
+                    {% if posts %}
+                        {% if userd == user %}
+                            <h3> My posts </h3>
+                        {% else %}
+                            <h3> Posts </h3>
+                        {% endif %}
+                        </div>
+
+                        {% for post in posts %}
+                            {% include 'snippets/postCards/postCardMini.html' %}
+                        {% endfor %}
+                    {% else %}
+                        <h3>No posts yet</h3>
+                    {% endif %}
+
+            </div>
+
+
+        </div>
+
+    <div class="content-section">
     		<form method="POST" enctype="multipart/form-data">
     			{% csrf_token %}
     			<fieldset class="form-group">
@@ -22,4 +164,9 @@
     		</form>
     	</div>
     </div>
+
+    {% include 'users/snippets/profileEditModal.html' %}
+    {% include 'users/snippets/followersFollowingModal.html' %}
+
+
 {% endblock content %}
