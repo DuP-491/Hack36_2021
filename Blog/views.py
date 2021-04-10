@@ -17,15 +17,27 @@ def home(request):
     context = {
         'posts': Post.objects.all()
     }
-    return render(request, 'Blog/home.html', context)
+    if(request.user.is_authenticated):
+         template_name = 'Blog/home.html'
+         return render(request, 'Blog/home.html', context)
+    else:
+        return render(request, 'Blog/intro.html')
 
 
-class PostListView(ListView):
-    model = Post
-    template_name = 'Blog/home.html'  # <app>/<model>_<viewtype>.html
-    context_object_name = 'posts'
-    ordering = ['-date_posted']
+# class PostListView(ListView):
+#     model = Post
+#      template_name = 'Blog/home.html'
+#     # <app>/<model>_<viewtype>.html
+#     context_object_name =
+#     ordering = ['-date_posted']
+#     def get(self,request):
 
+# def PostListView(request):
+#      if(request.session.user.is_authenticated):
+#          template_name = 'Blog/home.html'
+#           return render(request,)
+#      else:
+#         return render()
 
 class PostDetailView(DetailView):
     model = Post

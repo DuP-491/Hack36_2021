@@ -2,10 +2,15 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-    <div class="row">
+<style>
+        body{
+             background: url('https://img.freepik.com/free-vector/city-map-background-blue-tone_99087-101.jpg?size=626&ext=jpg&ga=GA1.2.1356500412.1617148800');
+        }
+    </style>
+    <div class="row white-text">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
             <div class=" ">
-                <h2 class="deep-purple-text  text-lighten-4 thinText3">Welcome To Twaatch</h2>
+                <h2 class="deep-purple-text  text-lighten-4 thinText3">Hybrid Learning</h2>
                 <div class="form-container">
                     <form method="POST">
                         {% csrf_token %}
