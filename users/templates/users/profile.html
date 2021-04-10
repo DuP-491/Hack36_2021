@@ -75,14 +75,6 @@
                                              class="btn btn-large btn-floating orange modal-trigger right "> <i
                                             class="material-icons">settings</i></a></span>
                                 {% endif %}
-                                <span><a href="#followerFollowing" class="btn btn-small orange modal-trigger">
-                                Followers/Followings</a></span>
-
-                                <span><a id="followThisDudeButton" class="btn btn-small orange modal-trigger">
-                                FOLLOW</a></span>
-
-                                <span><a id="unfollowThisDudeButton" class="btn btn-small orange modal-trigger">
-                                UNFOLLOW</a></span>
                             {% endif %}
                         </div>
 
@@ -179,47 +171,4 @@
 
 {% endblock content %}
 {% block script %}
-    <script>$(document).ready(function () {
-        $(document).on('click', '#followThisDudeButton', function (event) {
-            console.log('followThisDudeButton ');
-            event.preventDefault();
-            // var pk = $(this).attr('value');
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'follow' user %}",
-                data: {
-                    'csrfmiddlewaretoken': '{{  csrf_token }}'
-                },
-                success: function (response) {
-
-                    console.log('Success');
-
-                },
-                error: function (rs, e) {
-                    console.log(rs.responseText);
-                }
-            });
-        });
-        $(document).on('click', '#unfollowThisDudeButton', function (event) {
-            console.log('unfollowThisDudeButton ');
-            event.preventDefault();
-            // var pk = $(this).attr('value');
-            $.ajax({
-                type: 'POST',
-                url: "{% url 'unfollow' user %}",
-                data: {
-                    'csrfmiddlewaretoken': '{{  csrf_token }}'
-                },
-                success: function (response) {
-
-                    console.log('Success');
-
-                },
-                error: function (rs, e) {
-                    console.log(rs.responseText);
-                }
-            });
-        });
-        $('.tabs').tabs();
-    });</script>
 {% endblock script %}
