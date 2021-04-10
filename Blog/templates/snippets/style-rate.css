@@ -1,0 +1,31 @@
+label { margin: 0; padding: 0; }
+body{ margin: 20px; }
+
+.rating-container { 
+  border: none;
+  float: left;
+}
+.rating-container > input { display: none; } 
+.rating-container > label:before { 
+  margin:1px;
+  font-size:20px;
+  display: inline-block;
+  content: "★";
+}
+.rating-container > label { 
+  color: #ddd; 
+  float: right; 
+ }
+
+.rating-container label:last-of-type:before{
+  content:"\2605";
+  color: rgba(0,0,0,0);
+}
+.rating-container > input:checked ~ label, 
+.rating-container:not(:checked) > label:hover,
+.rating-container:not(:checked) > label:hover ~ label { color: gold;  }
+
+.rating-container > input:checked + label:hover, 
+.rating-container > input:checked ~ label:hover,
+.rating-container > label:hover ~ input:checked ~ label, 
+.rating-container > input:checked ~ label:hover ~ label { color: #FFED85; }
