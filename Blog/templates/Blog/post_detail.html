@@ -133,11 +133,66 @@
                         </div>
                         <div id="test3" class="mainTabs col s12">
 
+        .video-content-tab {
+            height: 60vh;
+        }
+    </style>
+    <div class="">
 
-                        </div>
-                        <div id="test4" class="mainTabs col s12">
-                            <div id="enroll">
-                                {% include 'Blog/enroll.html' %}
+        {#    <div class="col s10">#}
+        {#         #}
+        {#    </div>#}
+        <div class="row">
+            <div class="video-content-tab col s10" style="background-color:chartreuse;">
+                {% comment %} {% video post.demovid 'small' %} {% endcomment %}
+            </div>
+            <div class="video-content-tab col s2">
+
+            </div>
+            <div class="col s10">
+                <div class="col s8 offset-s1">
+                    <ul class="tabs">
+                        <li class="tab col s3"><a class="active" href="#test1">Detail</a></li>
+                        <li class="tab col s3"><a  href="#test2">Test 2</a></li>
+                        <li class="tab col s3 "><a href="#test3">About Instructor</a></li>
+                        <li class="tab col s3"><a href="#test4">Enroll</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="col s2"></div>
+            <button class="btn">hdhja</button>
+            <button class="btn">dhja</button>
+            {#            </div>#}
+            {#        </div>#}
+            {#        <div class="col s1"></div>#}
+            <div class="col s12">
+                <div class="row">
+                    <div class="col s6 offset-s1 ">
+                        <style>
+                            .mainTabs {
+                                min-height: 50vh;
+                            }
+                        </style>
+                        <div class="row">
+                            <div id="test1" class="mainTabs col s12">
+                                {{ post.content }}
+                                <br>
+                                <br>
+                                <h3> Reviews </h3>
+                                {% for review in reviews %}
+                                  <div class = "row">
+                                    {{review.author}}    {{review.rating}}/5<br>
+                                    {{review.body}} <br>
+                                  </div>
+                                {% endfor %}
+                            </div>
+                            <div id="test2" class=" mainTabs col s12">
+                                {{ post.location }}
+                            </div>
+                            <div id="test4" class="mainTabs col s12">
+                                <div id="enroll">
+                                    {% include 'Blog/enroll.html' %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -178,7 +233,9 @@
         <div class="col s10">
 
 
+
         </div>
+
 
 
     </div>
