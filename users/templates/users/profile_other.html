@@ -25,7 +25,9 @@
                     <div class="card-content ">
                         <p> From: {{object.user.email }} </p>
                         <p> Bio:{{ object.user.bio}} </p>
+                        <div id="follow-section">
                         {%include 'users/follow.html'%}
+                        </div>
                     </div>
                 </div>
             </div>
