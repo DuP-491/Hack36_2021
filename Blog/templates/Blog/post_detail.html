@@ -56,16 +56,18 @@
         <div class="row">
             <div class="video-content-tab col s10" style="background-color:chartreuse;">
                 {% comment %} {% video post.demovid 'small' %} {% endcomment %}
-            </div> 
+            </div>
             <div class="video-content-tab col s2">
 
             </div>
             <div class="col s10">
                 <div class="col s8 offset-s1">
                     <ul class="tabs">
+
                         <li class="tab col s3"><a  href="#test1">Detail</a></li>
                         <li class="tab col s3"><a  href="#test2">Test 2</a></li>
                         <li class="tab col s3 "><a class="active" href="#test3">Video</a></li>
+
                         <li class="tab col s3"><a href="#test4">Enroll</a></li>
                     </ul>
                 </div>
@@ -92,9 +94,11 @@
                                 {{ post.location }}
                             </div>
                             <div id="test3" class="mainTabs col s12">
+
                                 <div id="video-section">
 
                                 {% include 'Blog/video_play.html' %}
+
                                 </div>
                             </div>
                             <div id="test4" class="mainTabs col s12">
@@ -109,7 +113,9 @@
                         <div class="container">
                             <div class="row">
                                 {% if request.user == post.author %}
-                                    <a href="{% url 'add_video' post.pk%}"><button class="btn btn-success">Add Video</button></a>
+                                    <a href="{% url 'add_video' post.pk %}">
+                                        <button class="btn btn-success">Add Video</button>
+                                    </a>
                                 {% endif %}
                                 <button class="btn btn-success">sdcsdcs</button>
                                 <button class="btn btn-success">sdcsd</button>
@@ -144,19 +150,19 @@
 
         <div class=" row">
             {% for video in videos %}
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{{ video.thumbnail.url }}">
-                        <span class="card-title">{{ video.title }}</span>
-                    </div>
-                    <div class="">
-                        <button id="videoPlay" value="{{ video.pk }}" class="btn btn-primary">Play</button>
+                <div class="col s2">
+                    <div class="card">
+                        <div class="card-image">
+                            <img src="{{ video.thumbnail.url }}">
+                            <span class="card-title">{{ video.title }}</span>
+                        </div>
+                        <div class="">
+                            <button id="videoPlay" value="{{ video.pk }}" class="btn btn-primary">Play</button>
+                        </div>
                     </div>
                 </div>
-            </div>
             {% endfor %}
-    </div>
+        </div>
 
 
     </div>
@@ -206,6 +212,7 @@
             });
         });
     </script>
+
  <script type="text/javascript">
     	$(document).ready(function(event) {
     		$(document).on('click', '#videoPlay', function(event) {
@@ -228,28 +235,29 @@
 
     		});
     	});
+
     </script>
     <script type="text/javascript">
-    	$(document).ready(function(event) {
-    		$(document).on('click', '#enroll', function(event) {
-    			event.preventDefault();
+        $(document).ready(function (event) {
+            $(document).on('click', '#enroll', function (event) {
+                event.preventDefault();
 
-    			var user = $(this).attr('value');
+                var user = $(this).attr('value');
 
-    			$.ajax ({
-    				type		:		'POST'	,
-    				url			: 	'{% url "enroll" %}'	,
-    				data 		: 	{'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'}	,
-    				success	: function(response) {
-    					$('#enroll').html(response['form'])
-    					console.log('Success');
-    				}	,
-    				error: function(rs,e) {
-    					console.log(rs.responseText);
-    				}
-    			});
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "enroll" %}',
+                    data: {'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                    success: function (response) {
+                        $('#enroll').html(response['form'])
+                        console.log('Success');
+                    },
+                    error: function (rs, e) {
+                        console.log(rs.responseText);
+                    }
+                });
 
-    		});
-    	});
+            });
+        });
     </script>
 {% endblock %}
