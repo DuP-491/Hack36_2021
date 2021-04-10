@@ -49,3 +49,10 @@ class Video(models.Model):
 	description = models.TextField()
 	vid = models.FileField(upload_to=user_directory_path)
 	thumbnail = models.ImageField(upload_to=usert_directory_path,default='default.jpg')
+
+
+class Review(models.Model):
+	course = models.ForeignKey(Post,on_delete=models.CASCADE)
+	author = models.ForeignKey(User,on_delete=models.CASCADE)
+	rating = models.IntegerField(default=0)
+	body = models.TextField()

@@ -7,10 +7,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post, Comment , Video
+from .models import Post, Comment , Video, Review
 from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect, JsonResponse
-from .forms import VideoCreateForm
+from .forms import VideoCreateForm, WriteReviewForm
 
 
 def home(request):
@@ -40,10 +40,12 @@ class PostDetailView(DetailView):
         post = self.object
         # Add in a QuerySet of all the books
         videos = Video.objects.filter(course=post)
+        reviews = Review.objects.filter(course=post)
         context['comments'] = Comment.objects.filter(post = self.object)
         context['is_enrolled'] = is_enrolled
         context['post']  = post
         context['videos'] = videos
+        context['reviews'] = reviews
         context['cvideo'] = videos.first()
         return context
 
@@ -165,3 +167,21 @@ def getVideo(request):
     context['cvideo']=video
     html = render_to_string('Blog/video_play.html', context, request=request)
     return JsonResponse({'html': html})
+
+
+def writeReview(request,id):
+    # print(type)
+    post = get_object_or_404(Post, id = id)
+    if(request.method=='POST'):
+        form = WriteReviewForm(request.POST,request.FILES)
+        if True:
+            form.save(commit=False)
+            form.instance.author= request.user
+            form.instance.course= post
+            form.save()
+            return redirect('post-detail',pk=post.pk)
+    else:
+        form= WriteReviewForm()
+        context={'form':form}
+        return render(request, 'Blog/video_form.html', context)
+    return HttpResponse("this should not happen")
