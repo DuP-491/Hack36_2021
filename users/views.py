@@ -50,6 +50,7 @@ def profile(request, user):
             'followers': followers,
             'followings': followings,
         }
+
         return render(request, 'users/profile.html', context)
     else:
         pro=Profile.objects.filter(user=user).first()
@@ -64,10 +65,7 @@ def profile(request, user):
             context['is_followed']=True
         else:
             context['is_followed']=False
-
         return render(request, 'users/profile_other.html', context)
-
-
 def follow(request):
     userd = request.POST.get('username')
     userd=User.objects.get(username=userd)
