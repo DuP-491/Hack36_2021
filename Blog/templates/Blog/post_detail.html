@@ -253,19 +253,29 @@
     });
 </script>
 
-<script type="text/javascript">
+<script id="#videoPlayScript" type="text/javascript">
+    var is_enrolled;
     $(document).ready(function (event) {
+
+        if("{{ is_enrolled }}"==="False"){
+            is_enrolled=false;
+        }
+        else{
+            is_enrolled=true;
+        }
         $(document).on('click', '#videoPlay', function (event) {
             event.preventDefault();
-            var vid = $(this).attr('value');
-            if("{{ is_enrolled }}"==="False"){
+            if(is_enrolled===false && vid!==0){
+                M.toast({html: 'You have to Enroll first'});
                 return;
             }
-            $.ajax({
+            var vid = $(this).attr('value');
 
+            $.ajax({
                 type: 'GET',
                 url: '{% url "play-video" %}',
                 data: {'id': vid,},
+
                 success: function (response) {
                     console.log(response['html']);
                     $('#video-section').html(response['html']);
@@ -284,20 +294,40 @@
         $(document).on('click', '#enrollButton', function (event) {
             event.preventDefault();
             var user = $(this).attr('value');
+            if(is_enrolled===true){
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "enroll" %}',
+                    data: {'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                    success: function (response) {
+                        $('#enroll').html(response['form'])
+                        // $('#thisdiv').load(document.URL +  ' #thisdiv');
+                        console.log('Success');
+                        is_enrolled=!is_enrolled;
 
-            $.ajax({
+                    },
+                    error: function (rs, e) {
+                        console.log(rs.responseText);
+                    }
+                });
+            }
+            else{
+                $.ajax({
+                    type: 'POST',
+                    url: '{% url "enroll" %}',
+                    data: {'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                    success: function (response) {
+                        $('#enroll').html(response['form'])
+                        // $('#thisdiv').load(document.URL +  ' #thisdiv');
+                        console.log('Success');
+                        is_enrolled=!is_enrolled;
+                    },
+                    error: function (rs, e) {
+                        console.log(rs.responseText);
+                    }
+                });
+            }
 
-                type: 'POST',
-                url: '{% url "enroll" %}',
-                data: {'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'},
-                success: function (response) {
-                    $('#enroll').html(response['form'])
-                    console.log('Success');
-                },
-                error: function (rs, e) {
-                    console.log(rs.responseText);
-                }
-            });
 
         });
     });
