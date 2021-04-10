@@ -159,7 +159,7 @@ def addvideo(request,id):
     return HttpResponse("this should not happen")
 
 def getVideo(request):
-    id=request.POST.get('id')
+    id=request.GET.get('id')
     video= get_object_or_404(Video,id=id)
     context={}
     context['cvideo']=video
