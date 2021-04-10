@@ -31,15 +31,15 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        is_liked = False
-        if (self.object.likers.filter(username = self.request.user.username).exists()):
-            is_liked = True
+        is_enrolled = False
+        if (self.object.enrolled.filter(username = self.request.user.username).exists()):
+            is_enrolled = True
         else:
-            is_liked = False
+            is_enrolled = False
         post = self.object
         # Add in a QuerySet of all the books
         context['comments'] = Comment.objects.filter(post = self.object)
-        context['is_liked'] = is_liked
+        context['is_enrolled'] = is_enrolled
         context['post']  = post
         return context
 
@@ -119,3 +119,20 @@ def likepost(request):
     return JsonResponse({'form':html})
     # else:
     #      return HttpResponseRedirect(post.get_absolute_url())
+
+def enroll(request):
+    post = get_object_or_404(Post, id = request.POST.get('id'))
+    is_enrolled = False
+    if (post.enrolled.filter(username = request.user.username).exists()):
+        post.enrolled.remove(request.user)
+        is_enrolled = False
+    else:
+        post.enrolled.add(request.user)
+        is_enrolled = True
+
+    context = {
+        'is_enrolled' : is_enrolled,
+        'post' : post
+    }
+    html = render_to_string('Blog/enroll.html',context, request = request)
+    return JsonResponse({'form':html})

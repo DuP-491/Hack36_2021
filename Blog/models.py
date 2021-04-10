@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from embed_video.fields import EmbedVideoField
 
 # Create your models here.
 class Post(models.Model):
@@ -13,6 +14,7 @@ class Post(models.Model):
 	likers = models.ManyToManyField(User, related_name = 'likers', blank = True)
 	location =models.CharField(max_length=100,blank="True",null="True")
 	totrating = models.IntegerField(default=0)
+	demovid = EmbedVideoField(blank=True,null=True)
 
 	def get_absolute_url(self):
 		return reverse('post-detail', kwargs = {'pk':self.pk})
