@@ -103,7 +103,9 @@
                     <div class=" col s4">
                         <div class="container">
                             <div class="row">
-                                <button class="btn btn-success">dsdckshdc</button>
+                                {% if request.user == post.author %}
+                                    <a href="{% url 'add_video' post.pk%}"><button class="btn btn-success">Add Video</button></a>
+                                {% endif %}
                                 <button class="btn btn-success">sdcsdcs</button>
                                 <button class="btn btn-success">sdcsd</button>
                                 <button class="btn btn-success">dsdckshdc</button>
@@ -150,57 +152,16 @@
 
 
         <div class=" row">
+            {% for video in videos %}
             <div class="col s2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
+                        <img src="{{ video.thumbnail.url }}">
+                        <span class="card-title">{{ video.title }}</span>
                     </div>
                 </div>
             </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+            {% endfor %}
     </div>
 
 

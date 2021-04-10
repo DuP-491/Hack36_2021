@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect,HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
@@ -7,9 +7,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post, Comment
+from .models import Post, Comment , Video
 from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect, JsonResponse
+from .forms import VideoCreateForm
 
 
 def home(request):
@@ -38,9 +39,11 @@ class PostDetailView(DetailView):
             is_enrolled = False
         post = self.object
         # Add in a QuerySet of all the books
+        videos = Video.objects.filter(course=post)
         context['comments'] = Comment.objects.filter(post = self.object)
         context['is_enrolled'] = is_enrolled
         context['post']  = post
+        context['videos'] = videos
         return context
 
 
@@ -136,3 +139,20 @@ def enroll(request):
     }
     html = render_to_string('Blog/enroll.html',context, request = request)
     return JsonResponse({'form':html})
+
+def addvideo(request,id):
+    # print(type)
+    post = get_object_or_404(Post, id = id)
+    if(request.method=='POST'):
+        form =VideoCreateForm(request.POST,request.FILES)
+        if True:
+            form.save(commit=False)
+            form.instance.author=request.user
+            form.instance.course=post
+            form.save()
+            return redirect('post-detail',pk=post.pk)
+    else:
+        form=VideoCreateForm()
+        context={'form':form}
+        return render(request, 'Blog/video_form.html', context)
+    return HttpResponse("this should not happen")
