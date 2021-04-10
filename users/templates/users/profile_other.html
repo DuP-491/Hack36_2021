@@ -1,58 +1,121 @@
 {% extends "Blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-    <div class="content-section">
-      <div class="media">
-        <img class="rounded-circle account-img" src="{{object.user.profile.image.url}}">
-        <div class="media-body">
-          <h2 class="account-heading">{{ object.user.username }}</h2>
-          <p class="text-secondary">{{ object.user.email }}</p>
+
+
+{% include 'snippets/profilePageParallax.html' %}
+<!-- services / tabs -->
+<style>
+    #profileCard {
+        transform: translateY(-30%);
+    }
+</style>
+<div class="row   my ">
+
+    <div class="col s12 l4 ">
+
+        <div class="row">
+            <div class="col s10 offset-s1">
+                <div id="profileCard" class="card ">
+                    <div class="card-image">
+                        <img class="responsive-img" src="{{object.user.profile.image.url}}" alt="">
+                    </div>
+                    <h4 class=" center deep-purple-text text-darken-1"> @{{ object.user.username }}</h4>
+                    <!-- <h4 class="blue-text text-darken-4">User Info</h4> -->
+                    <div class="card-content ">
+                        <p> From: {{object.user.email }} </p>
+                        <p> Bio:{{ object.user.bio}} </p>
+                        <div id="follow-section">
+                        {%include 'users/follow.html'%}
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-          <div id="follow-section">
-        {%include 'users/follow.html'%}
-          </div>
-      </div>
-      </div>
-      <div class = "content-section">
-        <h1> Posts </h1>
-      {% for post in posts %}
-    	<article class="media content-section">
-    				<img class = "rounded-circle article-img" src = "{{post.author.profile.image.url}}">
-      <div class="media-body">
-        <div class="article-metadata">
-          <a class="mr-2" href="{% url 'profile' post.author %}">{{ post.author }}</a>
-          <small class="text-muted">{{ post.date_posted }}</small>
-        </div>
-        <h2><a class="article-title" href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
-        <p class="article-content">{{ post.content }}</p>
-      </div>
-    </article>
+
     </div>
-    	{% endfor %}
+    <div class="divider"></div>
+    <div class="  col s12 l7  ">
+        <div class="row">
+            <div class="col s12">
+                <ul class="tabs">
+                    <li class="tab col s3"><a class="active" href="#test1">Courses</a></li>
+                    <li class="tab col s3"><a href="#test2">Followers</a></li>
+                    <li class="tab col s3 "><a href="#test3">Following</a></li>
+                </ul>
+            </div>
+
+            <div id="test1" class=" goBack col s12">
+                <div class="row">
+                    <div class="col s10 l10 offset-s1 offset-l1 white-text ">
+                        {% if posts %}
+                        {% if userd == user %}
+                        <h3> My posts </h3>
+                        {% else %}
+                        <h3> Posts </h3>
+                        {% endif %}
+                    </div>
+                    <div class="row">
+                        {% for post in posts %}
+                        <div class="col l3">
+                            {% include 'snippets/courseCard.html' %}
+                        </div>
+                        {% endfor %}
+                    </div>
+
+
+                    {% else %}
+                    <h3>No posts yet</h3>
+                    {% endif %}
+
+                </div>
+            </div>
+            <div id="test2" class="goBack col s12">
+                {% include 'users/snippets/followers.html' %}
+            </div>
+            <div id="test3" class="goBack col s12">
+                {% include 'users/snippets/following.html' %}
+
+            </div>
+
+        </div>
+
+
+        <!-- tabs -->
+
+
+    </div>
+
+
+</div>
+
+
 {% endblock content %}
 {% block script %}
- <script type="text/javascript">
-    	$(document).ready(function(event) {
-    		$(document).on('click', '#follow', function(event) {
-    			event.preventDefault();
+<script type="text/javascript">
+    $(document).ready(function (event) {
+        $('.tabs').tabs();
+        $(document).on('click', '#follow', function (event) {
+            event.preventDefault();
 
-    			var user = $(this).attr('value');
-    			console.log(user)
+            var user = $(this).attr('value');
+            console.log(user)
 
-    			$.ajax ({
-    				type		:		'POST'	,
-    				url			: 	'{% url "follow" %}'	,
-    				data 		: 	{'username': user, 'csrfmiddlewaretoken': '{{csrf_token}}'}	,
-    				success	: function(response) {
-    					$('#follow-section').html(response['form'])
-    					console.log('Success');
-    				}	,
-    				error: function(rs,e) {
-    					console.log(rs.responseText);
-    				}
-    			});
+            $.ajax({
+                type: 'POST',
+                url: '{% url "follow" %}',
+                data: {'username': user, 'csrfmiddlewaretoken': '{{csrf_token}}'},
+                success: function (response) {
+                    $('#follow-section').html(response['form'])
+                    console.log('Success');
+                },
+                error: function (rs, e) {
+                    console.log(rs.responseText);
+                }
+            });
 
-    		});
-    	});
-    </script>
+        });
+    });
+</script>
 {% endblock %}
+

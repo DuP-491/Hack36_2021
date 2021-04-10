@@ -1,56 +1,59 @@
 <style>
-   .rating{
-     display: flex;
-     color: #9e9e9e;
-     font-size: 58px;
-    }
-   [type=radio]{
-     display: none; 
-   }
-   form label{
-     margin:0 5px;  
-   }
-   form label:hover{
-      color: orange;  
-   }
-   [type="submit"]{
-     border: 2px solid black;
-     background-color: white;
-     color: black;
-     padding: 5px ;
-     margin-left: 15px;
-   }
-   [type="submit"]:hover{
-       background-color: black;
-     color: white;
-     border: 2px solid gray;
-   }
+label { margin: 0; padding: 0; }
+body{ margin: 20px; }
 
+.rating-container { 
+  border: none;
+  float: left;
+}
+.rating-container > input { display: none; } 
+.rating-container > label:before { 
+  margin:1px;
+  font-size:20px;
+  display: inline-block;
+  content: "★";
+}
+.rating-container > label { 
+  color: #ddd; 
+  float: right; 
+ }
+
+.rating-container label:last-of-type:before{
+  content:"\2605";
+  color: rgba(0,0,0,0);
+}
+.rating-container > input:checked ~ label, 
+.rating-container:not(:checked) > label:hover,
+.rating-container:not(:checked) > label:hover ~ label { color: gold;  }
+
+.rating-container > input:checked + label:hover, 
+.rating-container > input:checked ~ label:hover,
+.rating-container > label:hover ~ input:checked ~ label, 
+.rating-container > input:checked ~ label:hover ~ label { color: #FFED85; }
 
 </style>
 
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script >{% include 'snippets/script-rate.js' %}</script>
 
-<form class="rating" method="POST" id="form1">
- 
-  <input type="radio" id="rating1" name="rating" value="1">
-  <label id="1" title="Poor" class="fa fa-star" for="rating1"></label>
-  
-  <input type="radio" id="rating2" name="rating" value="2">
-        <label id="2" title="Average" class="fa fa-star" for="rating2"></label>
+<script src="script-rate.js"></script> 
 
-  
-  <input type="radio" id="rating3" name="rating" value="3">
-  <label id="3" title="Average" class="fa fa-star" for="rating3"></label>
-     
-  
-  <input type="radio" id="rating4" name="rating" value="4">
-  <label id="4" title="Good" class="fa fa-star" for="rating4"></label>
-  
-  
-  <input type="radio" id="rating5" name="rating" value="5">
-  <label id="5" title="Awesome" class="fa fa-star" for="rating5"></label>
-  <button type="submit" form="form1" value="Submit">RATE</button>
-</form> 
+
+<h1>Ratings</h1>
+
+<div class="rating-container">
+    <input type="radio" id="rating-5" name="rating" value="5" />
+    <label for="rating-5"></label>
+    <input type="radio" id="rating-4" name="rating" value="4" />
+    <label for="rating-4"></label>
+    <input type="radio" id="rating-3" name="rating" value="3" />
+    <label for="rating-3"></label>
+    <input type="radio" id="rating-2" name="rating" value="2" />
+    <label for="rating-2"></label>
+    <input type="radio" id="rating-1" name="rating" value="1" />
+    <label for="rating-1"></label>
+    <input type="radio" id="rating-0" name="rating" value="0" />
+    <label for="rating-0"></label>
+  </div>
 <br>
+<div class="count">
+  <p class="rating">0</p>  
+</div>

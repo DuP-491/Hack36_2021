@@ -14,18 +14,19 @@
 
 
         #trendingPost {
-        {#width: 100vw !important;#}{#height:60vh !important;#}
-        }
 
+        }
+    #trendingPostContainer{
+        /*height: 60vh;!important;*/
+    }
         .tt {
-            max-width: 40vw !important;
+            width: 55vh !important;
+            height: auto;
         }
 
 
     </style>
-    <div id="trendingPost" class="row">
-        {#        <div class="col s12 ">#}
-
+    <div id="trendingPostContainer" class="row">
         <div id="trendingPost" class="carousel carousel-slider">
             {% for post in posts %}
                 <div class="tt carousel-item ">
@@ -38,8 +39,6 @@
             {% endfor %}
 
         </div>
-
-        {#        </div>#}
     </div>
     <div class="container">
         <div id="recentPost" class="row">
