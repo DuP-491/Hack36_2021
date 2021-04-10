@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Hack</title>
+
+    <!-- stylesheet -->
+    <!-- <link rel="stylesheet" href="style.css"> -->
+    <style media="screen">
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .floor {
+            position: absolute;
+            top: -200%;
+            left: -200%;
+            width: 500%;
+            height: 500%;
+            background: url('https://img.freepik.com/free-vector/city-map-background-blue-tone_99087-101.jpg?size=626&ext=jpg&ga=GA1.2.1356500412.1617148800');
+            transform: rotate3d(1, 0, 1, 50deg);
+        }
+
+        canvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+
+        .logo {
+            position: fixed;
+            font-family: Poppins;
+            line-height: 80px;
+            margin-left: 2em;
+            color: #ffffff;
+            font-size: 15px;
+            letter-spacing: 3px;
+            font-weight: bold;
+            text-transform: uppercase;
+            z-index: 1;
+        }
+
+        .logo ion-icon {
+            color: #000000;
+            margin-right: 7px;
+            position: relative;
+            top: 1px;
+            z-index: 1;
+        }
+
+        .contact {
+            position: fixed;
+            color: #ffffff;
+            font-size: 12px;
+            letter-spacing: 2px;
+            font-family: Poppins;
+            right: 100px;
+            line-height: 80px;
+            bottom: "10%";
+            z-index: 1;
+        }
+
+        .menu {
+            position: fixed;
+            color: #6adb9d;
+            right: 2em;
+            top: 4px;
+            line-height: 80px;
+            z-index: 1;
+        }
+
+        .menu ion-icon {
+            font-size: 24px;
+        }
+
+        .header {
+            font-family: monospace;
+            position: absolute;
+            width: 120%;
+            color: white;
+            font-size: 15px;
+            text-shadow: 1px 1px 1px #737373;
+            background: rgba(0, 0, 0, 0.4);
+
+            top: 50%;
+            left: 60%;
+            transform: translate(-50%, -50%);
+            z-index: 1;
+        }
+
+        .ml7 {
+            position: relative;
+            left: "20%";
+            font-weight: 900;
+            font-size: 3.7em;
+        }
+
+        .ml7 .text-wrapper {
+            position: relative;
+            display: inline-block;
+            padding-top: 0.2em;
+            padding-right: 0.05em;
+            padding-bottom: 0.1em;
+            overflow: hidden;
+        }
+
+        .ml7 .letter {
+            transform-origin: 0 100%;
+            display: inline-block;
+
+            line-height: 1em;
+        }
+
+        h1 {
+            color: #fff;
+            font-family: "Roboto";
+            font-weight: bolder !important;
+            font-size: 46px !important;
+            margin-bottom: 0px;
+            text-transform: uppercase !important;
+        }
+
+        #tagline {
+            width: 640px;
+        }
+
+        p {
+            color: #ffffff;
+            font-weight: 200;
+            font-family: "Roboto";
+            right: "6%";
+            line-height: 28px;
+            margin-top: 0;
+            margin-bottom: 0;
+        }
+
+        .buttons {
+            margin-top: 40px;
+        }
+
+        button {
+            margin-right: 10px !important;
+            padding: 14px 30px;
+            border: none;
+            color: #fff;
+            font-size: 12px !important;
+            letter-spacing: 4px;
+            font-weight: 300;
+        }
+
+        #one {
+            background: none;
+            border: .3pt solid rgba(255, 255, 255, 0.3);
+        }
+
+        #two {
+            background: linear-gradient(135deg, rgb(106, 219, 157) 0%, rgb(23, 167, 88) 100%);;
+        }
+
+        .media {
+            position: absolute;
+            top: 38%;
+            z-index: 1;
+            right: 6%
+        }
+
+        .media ul {
+            position: absolute;
+            list-style: none;
+        }
+
+        .media ul li {
+            color: grey;
+            padding: 12px 0;
+            display: inline-block !important;
+        }
+
+        .bottom-text {
+            position: absolute;
+            z-index: 1;
+            color: grey;
+            font-size: 18px;
+            font-family: monospace;
+            margin-left: 2em;
+            bottom: 40px;
+        }
+
+        .copyright {
+            position: absolute;
+            z-index: 1;
+            color: grey;
+            font-size: 15px;
+            right: 0;
+            font-family: Roboto;
+            font-weight: 100;
+            margin-right: 2em;
+            bottom: 40px;
+        }
+
+
+    </style>
+    <!-- google fonts -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto:100,100i,300,300i,400,400i,500,500i,700,700i,900,900i&display=swap"
+          rel="stylesheet">
+
+    <!-- icons -->
+    <script src="https://unpkg.com/ionicons@4.5.10-0/dist/ionicons.js"></script>
+
+    <!-- gsap -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/2.1.2/TweenMax.min.js"></script>
+
+    <!-- AnimeJS -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/animejs/2.0.2/anime.min.js"></script>
+
+    <!-- JQuery -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.0.0-beta1/jquery.min.js"></script>
+</head>
+<body>
+
+
+<div class="floor"></div>
+<canvas id="canvas"></canvas>
+
+
+<script>
+
+    const canvas = document.getElementById('canvas');
+    const ctx = canvas.getContext('2d');
+    canvas.height = window.innerHeight;
+    canvas.width = window.innerWidth;
+
+    // load images
+    const images = {};
+    images.player = new Image();
+    images.player.src = 'https://i.ibb.co/Ybk7y06/character.png';
+    const characterActions = ['up', 'top right', 'right', 'down right', 'down'];
+    const numberOfCharacters = 20;
+    const characters = [];
+
+    class Character {
+        constructor() {
+            this.width = 40;
+            this.height = 43.875;
+            this.frameX = 3;
+            this.x = Math.random() * canvas.width - this.width;
+            this.y = Math.random() * canvas.height - this.height;
+            this.speed = (Math.random() * 2) + 3;
+            this.minFrame = 0;
+            this.action = characterActions[Math.floor(Math.random() * characterActions.length)];
+            if (this.action === 'up') {
+                this.frameY = 0;
+                this.minFrame = 4;
+                this.maxFrame = 15;
+            } else if (this.action === 'top right') {
+                this.frameY = 1;
+                this.minFrame = 4;
+                this.maxFrame = 14;
+            } else if (this.action === 'right') {
+                this.frameY = 3;
+                this.minFrame = 3;
+                this.maxFrame = 13;
+            } else if (this.action === 'down right') {
+                this.frameY = 4;
+                this.minFrame = 4;
+                this.maxFrame = 15;
+            } else if (this.action === 'down') {
+                this.minFrame = 0;
+                this.frameY = 6;
+                this.maxFrame = 12;
+            } else if (this.action === 'jump') {
+                this.minFrame = 0;
+                this.frameY = 7;
+                this.maxFrame = 9;
+            }
+
+        }
+
+        draw() {
+            drawSprite(images.player, this.width * this.frameX, this.height * this.frameY, this.width, this.height, this.x, this.y, this.width * 1.5, this.height * 1.5);
+
+            if (this.frameX < this.maxFrame) this.frameX++;
+            else this.frameX = this.minFrame;
+        }
+
+        update() {
+            if (this.action === 'up') {
+                if (this.y < 0 - (this.height * 5)) {
+                    this.y = canvas.height + this.height;
+                    this.x = Math.random() * canvas.width;
+                    this.speed = (Math.random() * 2) + 3;
+                } else {
+                    this.y -= this.speed;
+                }
+            } else if (this.action === 'top right') {
+                if (this.y < 0 - this.height && this.x > canvas.width + this.width) {
+                    this.y = canvas.height + this.height
+                    this.x = Math.random() * canvas.width;
+                    this.speed = (Math.random() * 2) + 3;
+                } else {
+                    this.y -= this.speed;
+                    this.x += this.speed;
+                }
+            } else if (this.action === 'right') {
+                if (this.x > canvas.width + (this.width * 5)) {
+                    this.x = 0 - this.width;
+                    this.y = Math.random() * canvas.height;
+                    this.speed = (Math.random() * 2) + 3;
+                } else {
+                    this.x += this.speed;
+                }
+            } else if (this.action === 'down right') {
+                if (this.y > canvas.height + this.height && this.x > canvas.width + this.width) {
+                    this.y = 0 - this.height
+                    this.x = Math.random() * canvas.width;
+                    this.speed = (Math.random() * 2) + 3;
+                } else {
+                    this.y += this.speed;
+                    this.x += this.speed;
+                }
+            } else if (this.action === 'down') {
+                if (this.y > canvas.height + (this.height * 5)) {
+                    this.y = 0 - this.height;
+                    this.x = Math.random() * canvas.width;
+                    this.speed = (Math.random() * 2) + 3;
+                } else {
+                    this.y += this.speed;
+                }
+            } else if (this.action === 'jump') {
+
+            }
+        }
+    }
+
+    for (i = 0; i < numberOfCharacters; i++) {
+        characters.push(new Character());
+    }
+
+
+    function drawSprite(img, sX, sY, sW, sH, dX, dY, dW, dH) {
+        ctx.drawImage(img, sX, sY, sW, sH, dX, dY, dW, dH);
+    }
+
+    function animate() {
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        for (i = 0; i < characters.length; i++) {
+            characters[i].draw();
+            characters[i].update();
+        }
+
+    }
+
+    window.onload = setInterval(animate, 1000 / 20);
+
+    window.addEventListener('resize', function () {
+        canvas.height = window.innerHeight;
+        canvas.width = window.innerWidth;
+    })
+
+
+</script>
+
+
+<div class="logo">
+    <ion-icon name="git-compare"></ion-icon>
+    HACK36
+</div>
+
+<div class="contact">GET IN TOUCH</div>
+
+<div class="menu">
+    <ion-icon name="options"></ion-icon>
+</div>
+
+<div class="header">
+
+    <h1 class="ml7" id="title">
+                  <span class="text-wrapper">
+                        <span class="letters"
+                              style="font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;">Hybrid Learning</span>
+                  </span>
+    </h1>
+
+
+    <p id="tagline" class="p1" style="opacity: inherit;">Hybrid Learning is a website developed by students of Motilal
+        Nehru National Institute of Technology, Allahabad,
+        Exclusively for MNNITians
+    </p>
+
+    <br><br>
+
+    <div class="buttons">
+
+        <a href="{% url 'login' %}">
+            <button id="one">Sign In</button>
+        </a>
+        <a href="{% url 'register' %}">
+            <button id="one">Sign Up</button>
+        </a>
+
+    </div>
+
+</div>
+
+
+<div class="media">
+    <ul>
+        <li>
+            <ion-icon name="logo-facebook"></ion-icon>
+        </li>
+        <li>
+            <ion-icon name="logo-instagram"></ion-icon>
+        </li>
+        <li>
+            <ion-icon name="logo-twitter"></ion-icon>
+        </li>
+        <li>
+            <ion-icon name="logo-youtube"></ion-icon>
+        </li>
+    </ul>
+</div>
+
+<!-- js -->
+<script src="script.js"></script>
+</body>
+</html>

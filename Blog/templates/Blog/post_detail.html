@@ -214,9 +214,7 @@
             $(document).on('click', '#like', function (event) {
 
                 event.preventDefault();
-
                 var pk = $(this).attr('value');
-
                 $.ajax({
                     type: 'POST',
                     url: '{% url "like-post" %}',
@@ -309,6 +307,7 @@
 
 
             });
+            }
         });
     </script>
 {% endblock %}
