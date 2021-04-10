@@ -63,7 +63,6 @@
     #myVideoPlayer {
         height: 60vh !important;
         width: auto !important;
-
     }
 </style>
 <div class="">
@@ -73,7 +72,10 @@
             {% comment %} {% video post.demovid 'small' %} {% endcomment %}
             <div id="video-section">
                 <div class="row">
-                    <div class="col s10 offset-s1"> {% include 'Blog/video_play.html' %}</div>
+                    <div class="col s9  "> {% include 'Blog/video_play.html' %}</div>
+                    <div class="col s3  "><div class="card">
+
+                    </div> </div>
                 </div>
 
             </div>
@@ -103,12 +105,10 @@
         <div class="col s10">
             <div class="col s8 offset-s1">
                 <ul class="tabs">
-
                     <li class="tab col s3"><a href="#test1">Detail</a></li>
-                    <li class="tab col s3"><a href="#test2">Test 2</a></li>
-                    <li class="tab col s3 "><a class="active" href="#test3">Video</a></li>
-
-                    <li class="tab col s3"><a href="#test4">Enroll</a></li>
+                    <li class="tab col s3"><a href="#test2">Location</a></li>
+                    <li class="tab col s3 "><a href="#test3">Video</a></li>
+                    <li class="tab col s3"><a class="active" href="#test4">Enroll</a></li>
                 </ul>
             </div>
         </div>
@@ -133,19 +133,21 @@
                         </div>
                         <div id="test3" class="mainTabs col s12">
                             <br>
-                                <br>
-                                <h3> Reviews </h3>
-                                {% for review in reviews %}
-                                  <div class = "row">
-                                    {{review.author}}    {{review.rating}}/5<br>
-                                    {{review.body}} <br>
-                                  </div>
-                                {% endfor %}
+                            <br>
+                            <h3> Reviews </h3>
+                            {% for review in reviews %}
+                            <div class="row">
+                                {{review.author}} {{review.rating}}/5<br>
+                                {{review.body}} <br>
+                            </div>
+                            {% endfor %}
 
                         </div>
                         <div id="test4" class="mainTabs col s12">
-                            <div id="enroll">
-                                {% include 'Blog/enroll.html' %}
+                            <div>
+                                <div id="enroll">
+                                    {% include 'Blog/enroll.html' %}
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -264,7 +266,7 @@
 </script>
 <script type="text/javascript">
     $(document).ready(function (event) {
-        $(document).on('click', '#enroll', function (event) {
+        $(document).on('click', '#enrollButton', function (event) {
             event.preventDefault();
 
             var user = $(this).attr('value');
