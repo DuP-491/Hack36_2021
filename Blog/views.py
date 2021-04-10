@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404,redirect,HttpResponse
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views.generic import (
     ListView,
@@ -7,9 +7,10 @@ from django.views.generic import (
     UpdateView,
     DeleteView
 )
-from .models import Post, Comment
+from .models import Post, Comment , Video
 from django.template.loader import render_to_string
 from django.http import HttpResponseRedirect, JsonResponse
+from .forms import VideoCreateForm
 
 
 def home(request):
@@ -31,16 +32,18 @@ class PostDetailView(DetailView):
     def get_context_data(self, **kwargs):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
-        is_liked = False
-        if (self.object.likers.filter(username = self.request.user.username).exists()):
-            is_liked = True
+        is_enrolled = False
+        if (self.object.enrolled.filter(username = self.request.user.username).exists()):
+            is_enrolled = True
         else:
-            is_liked = False
+            is_enrolled = False
         post = self.object
         # Add in a QuerySet of all the books
+        videos = Video.objects.filter(course=post)
         context['comments'] = Comment.objects.filter(post = self.object)
-        context['is_liked'] = is_liked
+        context['is_enrolled'] = is_enrolled
         context['post']  = post
+        context['videos'] = videos
         return context
 
 
@@ -119,3 +122,37 @@ def likepost(request):
     return JsonResponse({'form':html})
     # else:
     #      return HttpResponseRedirect(post.get_absolute_url())
+
+def enroll(request):
+    post = get_object_or_404(Post, id = request.POST.get('id'))
+    is_enrolled = False
+    if (post.enrolled.filter(username = request.user.username).exists()):
+        post.enrolled.remove(request.user)
+        is_enrolled = False
+    else:
+        post.enrolled.add(request.user)
+        is_enrolled = True
+
+    context = {
+        'is_enrolled' : is_enrolled,
+        'post' : post
+    }
+    html = render_to_string('Blog/enroll.html',context, request = request)
+    return JsonResponse({'form':html})
+
+def addvideo(request,id):
+    # print(type)
+    post = get_object_or_404(Post, id = id)
+    if(request.method=='POST'):
+        form =VideoCreateForm(request.POST,request.FILES)
+        if True:
+            form.save(commit=False)
+            form.instance.author=request.user
+            form.instance.course=post
+            form.save()
+            return redirect('post-detail',pk=post.pk)
+    else:
+        form=VideoCreateForm()
+        context={'form':form}
+        return render(request, 'Blog/video_form.html', context)
+    return HttpResponse("this should not happen")

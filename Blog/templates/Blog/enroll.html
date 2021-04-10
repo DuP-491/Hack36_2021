@@ -1,0 +1,16 @@
+{% if user.is_authenticated %}
+<form action = "{% url 'enroll'%}" method = "post">
+  {% csrf_token %}
+  {% if not is_enrolled %}
+<button name = "post_id" id = "enroll" class = "btn btn-primary" value = "{{post.pk}}" type = "submit"> EnRoll</button>
+ {% else %}
+ <button name = "post_id" id = "enroll" class = "btn btn-danger" value = "{{post.pk}}" type = "submit"> EnRolled</button>
+      <div class="container">
+      <div class="row">
+          <h2>Now you can Watch Tutorial</h2>
+      </div>
+      </div>
+ {% endif %}
+</form>
+{% else %}
+{% endif %}

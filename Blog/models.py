@@ -2,6 +2,7 @@ from django.db import models
 from django.utils import timezone
 from django.contrib.auth.models import User
 from django.urls import reverse
+from embed_video.fields import EmbedVideoField
 
 # Create your models here.
 class Post(models.Model):
@@ -13,6 +14,7 @@ class Post(models.Model):
 	likers = models.ManyToManyField(User, related_name = 'likers', blank = True)
 	location =models.CharField(max_length=100,blank="True",null="True")
 	totrating = models.IntegerField(default=0)
+	demovid = EmbedVideoField(blank=True,null=True)
 
 	def get_absolute_url(self):
 		return reverse('post-detail', kwargs = {'pk':self.pk})
@@ -31,3 +33,19 @@ class Comment(models.Model):
 
 	def get_absolute_url(self):
 		return reverse('post-detail', kwargs = {'pk':self.post.pk})
+
+def user_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'videos/course_{0}/{1}'.format(instance.course.id, filename)
+
+def usert_directory_path(instance, filename):
+    # file will be uploaded to MEDIA_ROOT/user_<id>/<filename>
+    return 'thumbnails/course_{0}/{1}'.format(instance.course.id, filename)
+
+class Video(models.Model):
+	course = models.ForeignKey(Post,on_delete=models.CASCADE)
+	author = models.ForeignKey(User,on_delete=models.CASCADE)
+	title = models.CharField(max_length=128)
+	description = models.TextField()
+	vid = models.FileField(upload_to=user_directory_path)
+	thumbnail = models.ImageField(upload_to=usert_directory_path,default='default.jpg')

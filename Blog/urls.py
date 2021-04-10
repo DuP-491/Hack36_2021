@@ -10,5 +10,7 @@ urlpatterns = [
     path('post/<int:pk>/delete/', PostDeleteView.as_view(), name='post-delete'),
     path('post/<int:pk>/comment/new/', CommentCreateView.as_view(), name='post-comment'),
     path(r'^like/$', views.likepost, name = 'like-post'),
+    path('enroll/',views.enroll,name='enroll'),
+    path('add_video/<id>/',views.addvideo,name='add_video'),
     path('about/', views.about, name='blog-about'),
 ]

@@ -1,20 +1,9 @@
 {% extends "Blog/base.html" %}
 {% load static %}
+{% load embed_video_tags %}
 {% block content %}
     <body>
     <style media="screen">
-        /* .circular--portrait {
-    position: relative;
-    width: auto;
-    height: 40px;
-    overflow: hidden;
-    border-radius: 50%;
-    }
-
-    .circular--portrait img {
-    width: 100%;
-    height: auto;
-    } */
         .circular--square {
             border-radius: 50% !important;
         }
@@ -66,9 +55,7 @@
         {#    </div>#}
         <div class="row">
             <div class="video-content-tab col s10" style="background-color:chartreuse;">
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
-                lorem
-                lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem lorem
+                {% video post.demovid 'small' %}
             </div>
             <div class="video-content-tab col s2">
 
@@ -76,10 +63,10 @@
             <div class="col s10">
                 <div class="col s8 offset-s1">
                     <ul class="tabs">
-                        <li class="tab col s3"><a href="#test1">Test 1</a></li>
-                        <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
-                        <li class="tab col s3 "><a href="#test3">twst3 Tab</a></li>
-                        <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                        <li class="tab col s3"><a class="active" href="#test1">Detail</a></li>
+                        <li class="tab col s3"><a  href="#test2">Test 2</a></li>
+                        <li class="tab col s3 "><a href="#test3">About Instructor</a></li>
+                        <li class="tab col s3"><a href="#test4">Enroll</a></li>
                     </ul>
                 </div>
             </div>
@@ -98,115 +85,27 @@
                             }
                         </style>
                         <div class="row">
-                            <div id="test1" class="mainTabs col s12">T After telling everyone that Lorem ipsum, the
-                                nonsensical
-                                text
-                                that
-                                comes
-                                with
-                                PageMaker, only looks like Latin but actually says nothing, I heard from Richard
-                                McClintock,
-                                publication
-                                director at the Hampden-Sydney College in Virginia, who had enlightening news:
-
-                                Lorem ipsum is latin, slightly jumbled, the remnants of a passage from Cicero's 'De
-                                finibus
-                                bonorum
-                                et
-                                malorum' 1.10.32, which begins 'Neque porro quisquam est qui dolorem ipsum quia dolor
-                                sit
-                                amet,
-                                consectetur,
-                                adipisci velit...' [There is no one who loves pain itself, who seeks after it and wants
-                                to
-                                have
-                                it,
-                                simply
-                                because it is pain.]. [de Finibus Bonorum et Malorum, written in 45 BC, is a treatise on
-                                the
-                                theory
-                                of
-                                ethics very popular in the Renaisance.]
-
-                                What I find remarkable is that this text has been the industry's standard dummy text
-                                ever
-                                since
-                                some
-                                printed
-                                in the 1500s took a galley of type and scrambled it to make a type specimen book; it has
-                                survived
-                                not
-                                only
-                                four centuries of letter-by-letter resetting but even the leap into electronic
-                                typesetting,
-                                essentially
-                                unchanged except for an occasional 'ing' or 'y' thrown in. It's ironic that when the
-                                then-understood
-                                Latin
-                                was scrambled, it became as incomprehensible as Greek; the phrase 'it's Greek to me' and
-                                'greeking'
-                                have
-                                common semantic roots!
+                            <div id="test1" class="mainTabs col s12">
+                                {{ post.content }}
                             </div>
-                            <div id="test2" class=" mainTabs col s12"> After telling everyone that Lorem ipsum, the
-                                nonsensical
-                                text
-                                that
-                                comes
-                                with
-                                PageMaker, only looks like Latin but actually says nothing, I heard from Richard
-                                McClintock,
-                                publication
-                                director at the Hampden-Sydney College in Virginia, who had enlightening news:
-
-                                Lorem ipsum is latin, slightly jumbled, the remnants of a passage from Cicero's 'De
-                                finibus
-                                bonorum
-                                et
-                                malorum' 1.10.32, which begins 'Neque porro quisquam est qui dolorem ipsum quia dolor
-                                sit
-                                amet,
-                                consectetur,
-                                adipisci velit...' [There is no one who loves pain itself, who seeks after it and wants
-                                to
-                                have
-                                it,
-                                simply
-                                because it is pain.]. [de Finibus Bonorum et Malorum, written in 45 BC, is a treatise on
-                                the
-                                theory
-                                of
-                                ethics very popular in the Renaisance.]
-
-                                What I find remarkable is that this text has been the industry's standard dummy text
-                                ever
-                                since
-                                some
-                                printed
-                                in the 1500s took a galley of type and scrambled it to make a type specimen book; it has
-                                survived
-                                not
-                                only
-                                four centuries of letter-by-letter resetting but even the leap into electronic
-                                typesetting,
-                                essentially
-                                unchanged except for an occasional 'ing' or 'y' thrown in. It's ironic that when the
-                                then-understood
-                                Latin
-                                was scrambled, it became as incomprehensible as Greek; the phrase 'it's Greek to me' and
-                                'greeking'
-                                have
-                                common semantic roots!
+                            <div id="test2" class=" mainTabs col s12">
+                                {{ post.location }}
                             </div>
                             <div id="test3" class="mainTabs col s12">Test 3</div>
-                            <div id="test4" class="mainTabs col s12">Test 4</div>
+                            <div id="test4" class="mainTabs col s12">
+                                <div id="enroll">
+                                    {% include 'Blog/enroll.html' %}
+                                </div>
+                            </div>
                         </div>
                     </div>
 
                     <div class=" col s4">
                         <div class="container">
                             <div class="row">
-                                <button class="btn btn-success">dsdckshdc</button>
+                                {% if request.user == post.author %}
+                                    <a href="{% url 'add_video' post.pk%}"><button class="btn btn-success">Add Video</button></a>
+                                {% endif %}
                                 <button class="btn btn-success">sdcsdcs</button>
                                 <button class="btn btn-success">sdcsd</button>
                                 <button class="btn btn-success">dsdckshdc</button>
@@ -239,57 +138,16 @@
 
 
         <div class=" row">
+            {% for video in videos %}
             <div class="col s2">
                 <div class="card">
                     <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
+                        <img src="{{ video.thumbnail.url }}">
+                        <span class="card-title">{{ video.title }}</span>
                     </div>
                 </div>
             </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-            <div class="col s2">
-                <div class="card">
-                    <div class="card-image">
-                        <img src="{% static 'csgo.jpg' %}">
-                        <span class="card-title">Card Title</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-
+            {% endfor %}
     </div>
 
 
@@ -339,5 +197,29 @@
 
             });
         });
+    </script>
+ <script type="text/javascript">
+    	$(document).ready(function(event) {
+    		$(document).on('click', '#enroll', function(event) {
+    			event.preventDefault();
+
+    			var user = $(this).attr('value');
+    			console.log(user)
+
+    			$.ajax ({
+    				type		:		'POST'	,
+    				url			: 	'{% url "enroll" %}'	,
+    				data 		: 	{'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'}	,
+    				success	: function(response) {
+    					$('#enroll').html(response['form'])
+    					console.log('Success');
+    				}	,
+    				error: function(rs,e) {
+    					console.log(rs.responseText);
+    				}
+    			});
+
+    		});
+    	});
     </script>
 {% endblock %}
