@@ -2,7 +2,7 @@
 {% load static %}
 {% load embed_video_tags %}
 {% block content %}
-<body>
+<body >
 <style media="screen">
     .circular--square {
         border-radius: 50% !important;
@@ -75,11 +75,15 @@
                     <div class="col s9  "> {% include 'Blog/video_play.html' %}</div>
                     <div class="col s3  ">
                         <div class="card">
-                            <div class="card-title">
-                                {{ cvideo.title }}
+                            <div class="card-image">
+                                <img class=" " src="{{cvideo.thumbnail.url}}">
+                                <div class="card-title">
+                                    {{ cvideo.title }}
+                                </div>
                             </div>
-                            <div class="card-body">
 
+                            <div class="card-body">
+                               <p > {{ cvideo.description }}</p>
                             </div>
                         </div>
                     </div>
@@ -91,6 +95,7 @@
             <div class=" row">
                 {% for video in videos %}
                 <div class="videoCard col s12">
+
                     <div id="videoPlay" class=" waves-effect waves-dark  card horizontal" value="{{ video.pk }}">
                         <div class="card-image">
                             <img class=" videoThumbnail" src="{{ video.thumbnail.url }}">
@@ -226,6 +231,7 @@
     $(document).ready(function (event) {
         $('.tabs').tabs();
         $(document).on('click', '#like', function (event) {
+
             event.preventDefault();
 
             var pk = $(this).attr('value');
@@ -251,10 +257,12 @@
     $(document).ready(function (event) {
         $(document).on('click', '#videoPlay', function (event) {
             event.preventDefault();
-
             var vid = $(this).attr('value');
-
+            if("{{ is_enrolled }}"==="False"){
+                return;
+            }
             $.ajax({
+
                 type: 'GET',
                 url: '{% url "play-video" %}',
                 data: {'id': vid,},
@@ -275,10 +283,10 @@
     $(document).ready(function (event) {
         $(document).on('click', '#enrollButton', function (event) {
             event.preventDefault();
-
             var user = $(this).attr('value');
 
             $.ajax({
+
                 type: 'POST',
                 url: '{% url "enroll" %}',
                 data: {'id': user, 'csrfmiddlewaretoken': '{{csrf_token}}'},
