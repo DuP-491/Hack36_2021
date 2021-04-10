@@ -42,17 +42,24 @@ def profile(request, user):
         else:
             u_form = UserUpdateForm(instance=request.user)
             p_form = ProfileUpdateForm(instance=request.user.profile)
-
+            followers=user.profile.followers.all()
+            followings=user.profile.followings.all()
         context = {
             'uform': u_form,
-            'pform': p_form
+            'pform': p_form,
+            'followers': followers,
+            'followings': followings,
         }
         return render(request, 'users/profile.html', context)
     else:
         pro=Profile.objects.filter(user=user).first()
+        followers = user.profile.followers.all()
+        followings = user.profile.followings.all()
         context = {}
         context['posts'] = Post.objects.filter(author=user)
         context['object'] = Profile.objects.filter(user=user).first()
+        context['followers'] =user.profile.followers.all()
+        context['following'] = user.profile.followings.all()
         if pro.followers.filter(username=request.user).exists():
             context['is_followed']=True
         else:
