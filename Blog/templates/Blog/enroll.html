@@ -6,9 +6,12 @@
  {% else %}
  <button name = "post_id" id = "enroll" class = "btn btn-danger" value = "{{post.pk}}" type = "submit"> EnRolled</button>
       <div class="container">
-      <div class="row">
-          <h2>Now you can Watch Tutorial</h2>
-      </div>
+           <div class="row">
+              <h2>Now you can Watch Tutorial</h2>
+           </div>
+           <div class="">
+             {% include 'snippets/starRating.html' %}
+           </div>
       </div>
  {% endif %}
 </form>
