@@ -13,29 +13,6 @@
              {% include 'snippets/starRating.html' %}
            </div>
       </div>
-
-      <div class="mainTabs col s12">
-          <div class="video-section">
-          {% include 'Blog/video_play.html' %}
-          </div>
-      </div>
-
-      <div class=" row">
-          {% for video in videos %}
-          <div class="col s2">
-              <div class="card">
-                  <div class="card-image">
-                      <img src="{{ video.thumbnail.url }}">
-                      <span class="card-title">{{ video.title }}</span>
-                  </div>
-                  <div class="">
-                      <button id="videoPlay" value="{{ video.pk }}" class="btn btn-primary">Play</button>
-                  </div>
-              </div>
-          </div>
-          {% endfor %}
-  </div>
-
     <div>
       <a href="{% url 'write-review' post.pk %}"><button class="btn btn-success">Write Review</button></a>
     </div>
