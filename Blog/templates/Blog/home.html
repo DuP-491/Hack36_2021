@@ -40,12 +40,29 @@
 
         </div>
     </div>
+
     <div class="container">
+     {% if request.user.is_authenticated %}
+         {%  if request.user.profile.city is not None %}
         <div id="recentPost" class="row">
             <div class="col s12">
-                <h1>Recent Courses</h1>
+                <h1>Checkout Courses in Your City</h1>
             </div>
-            {% for post in posts %}
+            {% for post in local %}
+                <div class="col s12 l4">
+                    {% include 'snippets/courseCard.html' %}
+                </div>
+            {% endfor %}
+
+
+        </div>
+         {% endif %}
+    {% endif %}
+        <div id="recentPost" class="row">
+            <div class="col s12">
+                <h1>Checkout Online Courses in These Weird Time</h1>
+            </div>
+            {% for post in online %}
                 <div class="col s12 l4">
                     {% include 'snippets/courseCard.html' %}
                 </div>

@@ -15,8 +15,12 @@ from .forms import VideoCreateForm, WriteReviewForm
 
 def home(request):
     context = {
-        'posts': Post.objects.all()
+        'posts': Post.objects.all(),
+        'local': Post.objects.filter(location=request.user.profile.city),
+        'online': Post.objects.filter(location='')
     }
+    print(context['posts'].count())
+    print(context['local'].count())
     return render(request, 'Blog/home.html', context)
 
 
@@ -26,6 +30,13 @@ class PostListView(ListView):
     context_object_name = 'posts'
     ordering = ['-date_posted']
 
+    def get_context_data(self, *, object_list=None, **kwargs):
+        context = super().get_context_data(**kwargs)
+        if self.request.user.is_authenticated:
+            context['local']=Post.objects.filter(location=self.request.user.profile.city)
+        context['online']=Post.objects.filter(location=None)
+        return context
+
 
 class PostDetailView(DetailView):
     model = Post
@@ -33,16 +44,22 @@ class PostDetailView(DetailView):
         # Call the base implementation first to get a context
         context = super().get_context_data(**kwargs)
         is_enrolled = False
+        is_liked= False
         if (self.object.enrolled.filter(username = self.request.user.username).exists()):
             is_enrolled = True
         else:
             is_enrolled = False
+        if (self.object.likers.filter(username=self.request.user.username).exists()):
+            is_liked = True
+        else:
+            is_liked = False
         post = self.object
         # Add in a QuerySet of all the books
         videos = Video.objects.filter(course=post)
         reviews = Review.objects.filter(course=post)
         context['comments'] = Comment.objects.filter(post = self.object)
         context['is_enrolled'] = is_enrolled
+        context['is_liked']= is_liked
         context['post']  = post
         context['videos'] = videos
         context['reviews'] = reviews
@@ -53,7 +70,7 @@ class PostDetailView(DetailView):
 
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
-    fields = ['title', 'content']
+    fields = ['title', 'content','price','image','location','tags']
 
     def form_valid(self, form):
         form.instance.author = self.request.user
@@ -185,3 +202,9 @@ def writeReview(request,id):
         context={'form':form}
         return render(request, 'Blog/video_form.html', context)
     return HttpResponse("this should not happen")
+
+def filter(request,tag):
+    context={}
+    post=Post.objects.filter(tags__in=tag)
+    context['post']=post
+    return render(request,'Blog/filter.html',context=context)

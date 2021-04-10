@@ -14,5 +14,6 @@ urlpatterns = [
     path('add_video/<id>/',views.addvideo,name='add_video'),
     path('about/', views.about, name='blog-about'),
     path('play_video/',views.getVideo,name='play-video'),
-    path('write_review/<id>/',views.writeReview,name='write-review')
+    path('write_review/<id>/',views.writeReview,name='write-review'),
+    path('filter/<tag>/',views.filter,name='filter'),
 ]

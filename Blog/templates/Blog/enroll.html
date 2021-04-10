@@ -2,18 +2,24 @@
 <form action="{% url 'enroll'%}" method="post">
     {% csrf_token %}
     {% if not is_enrolled %}
-    <button name="post_id" id="enrollButton" class="btn btn-primary" value="{{post.pk}}" type="submit"> EnRoll</button>
-    {% else %}
-    <button name="post_id" id="enrollButton" class="btn btn-danger" value="{{post.pk}}" type="submit"> EnRolled</button>
-    <div class="container">
         <div class="row">
-            <h2>Now you can Watch Tutorial</h2>
+        <h6 class="center-align">Enroll Now To Learn Awesome Skill</h6>
+    <button name="post_id" id="enrollButton" class="btn btn-primary col-lg-3" value="{{post.pk}}" type="submit"> EnRoll</button>
         </div>
-        <div class="">
-            {% include 'snippets/starRating.html' %}
+    {% else %}
+        <div class="row center-block">
+            <h6 class="center-align">Now, you can Learn New Skills</h6>
         </div>
-    </div>
+        <button name="post_id" id="enrollButton" class="btn btn-danger" value="{{post.pk}}" type="submit"> EnRolled</button>
+        <br>
+        <h6 class="center-align">Leave a Like if you find the Course helpful</h6>
+        <br>
+        <div id="like-section">
+            {% include 'Blog/like-section.html' %}
+        </div>
+        <br>
     <div>
+    <h6 class="center-align">Give Review to Help Others</h6>
         <a href="{% url 'write-review' post.pk %}">
             <button class="btn btn-success">Write Review</button>
         </a>

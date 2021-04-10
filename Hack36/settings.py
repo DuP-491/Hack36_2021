@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'crispy_forms',
     'materializecssform',
     'embed_video',
+    'taggit',
 ]
 
 MIDDLEWARE = [

@@ -44,11 +44,13 @@ def profile(request, user):
             p_form = ProfileUpdateForm(instance=request.user.profile)
             followers=user.profile.followers.all()
             followings=user.profile.followings.all()
+            courses=Post.objects.filter(author=user)
         context = {
             'uform': u_form,
             'pform': p_form,
             'followers': followers,
             'followings': followings,
+            'courses': courses,
         }
         return render(request, 'users/profile.html', context)
     else:

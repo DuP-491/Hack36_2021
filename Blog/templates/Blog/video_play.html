@@ -1,12 +1,25 @@
 <style>
-  /*video{*/
-  /*  height: 400px !important;*/
-  /*  width: auto!important;*/
-  /*}*/
+    /*video{*/
+    /*  height: 400px !important;*/
+    /*  width: auto!important;*/
+    /*}*/
 
 </style>
-<video id="myVideoPlayer" class="responsive-video"  controls>
-  <source src="{{ cvideo.vid.url }}" type="video/mp4">
-  Your browser does not support HTML video.
-</video>
+<div class="col s9">
+    <video id="myVideoPlayer" class="responsive-video" controls>
+        <source src="{{ cvideo.vid.url }}" type="video/mp4">
+        Your browser does not support HTML video.
+    </video>
+</div>
+<div class="col s3">
+    <div class="card">
+        <div class="card-header">
+            What you will learn in this video
+        </div>
+        <div class="card-body ">
+            <p id="replacev"> Description:{{ cvideo.description }}</p>
+        </div>
+    </div>
+</div>
+</div>
 

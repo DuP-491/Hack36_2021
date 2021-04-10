@@ -23,8 +23,10 @@
                     <h4 class=" center deep-purple-text text-darken-1"> @{{ object.user.username }}</h4>
                     <!-- <h4 class="blue-text text-darken-4">User Info</h4> -->
                     <div class="card-content ">
-                        <p> From: {{object.user.email }} </p>
-                        <p> Bio:{{ object.user.bio}} </p>
+                        <p> First Name: {{ object.user.first_name }} </p>
+                        <p> Last Name: {{ object.user.last_name }} </p>
+                        <p> Bio:{{ object.bio }} </p>
+                        <p> City:{{ object.city }}</p>
                         <div id="follow-section">
                         {%include 'users/follow.html'%}
                         </div>
