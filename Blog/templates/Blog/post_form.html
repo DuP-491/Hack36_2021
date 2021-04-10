@@ -1,7 +1,9 @@
 {%  extends "Blog/base.html" %}
 {% load crispy_forms_tags %}
-
+{% load crispy_forms_tags %}
 {% block content %}
+<div class="row">
+	<div class="col s12 m8 offset-m2 l6 offset-l3">
 	<div class="content-section">
 		<form method="POST">
 			{% csrf_token %}
@@ -10,8 +12,10 @@
 				{{form|crispy}}
 			</fieldset>
 			<div class="form-group">
-			<button class="btn btn-outline-info" type="submit"> Post </button>
+				<button class="btn btn-outline-info" type="submit"> Post </button>
 			</div>
 		</form>
 	</div>
+	</div>
+</div></div>
 {% endblock content %}
