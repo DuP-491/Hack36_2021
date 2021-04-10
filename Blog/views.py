@@ -44,6 +44,7 @@ class PostDetailView(DetailView):
         context['is_enrolled'] = is_enrolled
         context['post']  = post
         context['videos'] = videos
+        context['cvideo'] = videos.first()
         return context
 
 
@@ -156,3 +157,11 @@ def addvideo(request,id):
         context={'form':form}
         return render(request, 'Blog/video_form.html', context)
     return HttpResponse("this should not happen")
+
+def getVideo(request):
+    id=request.POST.get('id')
+    video= get_object_or_404(Video,id=id)
+    context={}
+    context['cvideo']=video
+    html = render_to_string('Blog/video_play.html', context, request=request)
+    return JsonResponse({'html': html})

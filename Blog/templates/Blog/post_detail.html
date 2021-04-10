@@ -91,7 +91,11 @@
                             <div id="test2" class=" mainTabs col s12">
                                 {{ post.location }}
                             </div>
-                            <div id="test3" class="mainTabs col s12">Test 3</div>
+                            <div id="test3" class="mainTabs col s12">
+                                <div class="video-section">
+                                {% include 'Blog/video_play.html' %}
+                                </div>
+                            </div>
                             <div id="test4" class="mainTabs col s12">
                                 <div id="enroll">
                                     {% include 'Blog/enroll.html' %}
@@ -144,6 +148,9 @@
                     <div class="card-image">
                         <img src="{{ video.thumbnail.url }}">
                         <span class="card-title">{{ video.title }}</span>
+                    </div>
+                    <div class="">
+                        <button id="videoPlay" value="{{ video.pk }}" class="btn btn-primary">Play</button>
                     </div>
                 </div>
             </div>
@@ -200,11 +207,33 @@
     </script>
  <script type="text/javascript">
     	$(document).ready(function(event) {
+    		$(document).on('click', '#videoPlay', function(event) {
+    			event.preventDefault();
+
+    			var vid = $(this).attr('value');
+
+    			$.ajax ({
+    				type		:		'POST'	,
+    				url			: 	'{% url "play-video" %}'	,
+    				data 		: 	{'id': vid, 'csrfmiddlewaretoken': '{{csrf_token}}'}	,
+    				success	: function(response) {
+    					$('#video-section').html(response['hmtl'])
+    					console.log('Success');
+    				}	,
+    				error: function(rs,e) {
+    					console.log(rs.responseText);
+    				}
+    			});
+
+    		});
+    	});
+    </script>
+    <script type="text/javascript">
+    	$(document).ready(function(event) {
     		$(document).on('click', '#enroll', function(event) {
     			event.preventDefault();
 
     			var user = $(this).attr('value');
-    			console.log(user)
 
     			$.ajax ({
     				type		:		'POST'	,
