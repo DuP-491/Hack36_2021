@@ -45,8 +45,10 @@
                     <div class="card-content ">
 
 
-                        <p> From: {{ user.email }} </p>
-                        <p> Bio:{{ user.bio }} </p>
+                        <p> First Name: {{ user.first_name }} </p>
+                        <p> Last Name: {{ user.last_name }} </p>
+                        <p> Bio:{{ user.profile.bio }} </p>
+                        <p> City:{{ user.profile.city }}</p>
                         {% if user.is_authenticated %}
                         {% if userd == user %}
 
@@ -68,16 +70,19 @@
         <div class="row">
             <div class="col s12">
                 <ul class="tabs">
-                    <li class="tab col s3"><a class="active" href="#test1">About</a></li>
+                    <li class="tab col s3"><a class="active" href="#test1">My Courses</a></li>
                     <li class="tab col s3"><a href="#test2">Followers</a></li>
                     <li class="tab col s3 "><a href="#test3">Following</a></li>
                     <li class="tab col s3"><a href="#test4">Edit Profile</a></li>
                 </ul>
             </div>
 
-            <div id="test1" class=" goBack col s12">Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test
-                1Test 1Test
-                1Test 1Test 1Test 1
+            <div id="test1" class=" goBack col s12">
+                {% for post in courses %}
+                    <div class="col s12 l4">
+                    {% include 'snippets/courseCard.html' %}
+                </div>
+                {% endfor %}
             </div>
             <div id="test2" class="goBack col s12">
                 {% include 'users/snippets/followers.html' %}

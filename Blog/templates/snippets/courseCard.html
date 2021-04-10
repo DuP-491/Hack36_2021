@@ -2,22 +2,22 @@
 
 <div class="card">
     <div class="card-image">
-{#        <img src="{{ post.author.profile.image.url }}" alt="{% static 'csgo.jpg' %}">#}
-        <img src="{% static 'csgo.jpg' %}" >
+        <img src="{{ post.image.url }}" >
         <span class="card-title"><a class="article-title white-text "
                                     href="{% url 'post-detail' post.id %}">{{ post.title }}</a></span>
-        <a class="btn-floating halfway-fab waves-effect waves-dark grey"><i
-                class="material-icons">add</i></a>
     </div>
     <div class="card-content">
-        <div class="row"><p class="left ">{{ post.enrolled|length }} enrolled</p> <p class="right">{{ post.likers|length }} liked</p></div>
-        <span>   </span>
+        <div class="row"><p class="left ">Enrolled Students:{{ post.enrolled.count }} </p> <p class="right">Liked By:{{ post.likers.count }} </p></div>
       <span>
-            <p class="">{{ post.content }}</p>
-<!--        <p class=" ">{{ post.location }}</p>-->
-<!--        <p class="">{{ post.totrating }}</p>-->
+            <p class="">{{ post.content|truncatechars:30 }}</p>
       </span>
-
+        <span>
+        <p>Tags:
+            {% for tag in post.tags.all%}
+                #{{ tag.slug }} ,
+            {% endfor %}
+        </p>
+        </span>
 
     </div>
 </div>
