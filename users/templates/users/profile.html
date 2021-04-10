@@ -1,27 +1,27 @@
 {% extends "Blog/base.html" %}
 {% load crispy_forms_tags %}
 {% block content %}
-{#    <div class="content-section">#}
-{#        <div class="media">#}
-{#            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">#}
-{#            <div class="media-body">#}
-{#                <h2 class="account-heading">{{ user.username }}</h2>#}
-{#                <p class="text-secondary">{{ user.email }}</p>#}
-{#            </div>#}
-{#        </div>#}
-{#        <div class="content-section">#}
-            {#    		<form method="POST" enctype="multipart/form-data">#}
-            {#    			{% csrf_token %}#}
-            {#    			<fieldset class="form-group">#}
-            {#    				{{uform|crispy}}#}
-            {#            {{pform}}#}
-            {#    			</fieldset>#}
-            {#    			<div class="form-group">#}
-            {#    			<button class="btn btn-outline-info" type="submit"> Update </button>#}
-            {#    			</div>#}
-            {#    		</form>#}
-{#        </div>#}
-{#    </div>#}
+    {#    <div class="content-section">#}
+    {#        <div class="media">#}
+    {#            <img class="rounded-circle account-img" src="{{ user.profile.image.url }}">#}
+    {#            <div class="media-body">#}
+    {#                <h2 class="account-heading">{{ user.username }}</h2>#}
+    {#                <p class="text-secondary">{{ user.email }}</p>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#        <div class="content-section">#}
+    {#    		<form method="POST" enctype="multipart/form-data">#}
+    {#    			{% csrf_token %}#}
+    {#    			<fieldset class="form-group">#}
+    {#    				{{uform|crispy}}#}
+    {#            {{pform}}#}
+    {#    			</fieldset>#}
+    {#    			<div class="form-group">#}
+    {#    			<button class="btn btn-outline-info" type="submit"> Update </button>#}
+    {#    			</div>#}
+    {#    		</form>#}
+    {#        </div>#}
+    {#    </div>#}
     {% include 'snippets/profilePageParallax.html' %}
     <!-- services / tabs -->
     <style>
@@ -48,61 +48,62 @@
     <div class="row   my ">
         {#    <div class=" col s12">#}
         {#        <div class=" container center">#}
-        {#            <div class="responsive-img">#}
-        {#                <img src="{{ userd.profile.image.url }}" class="" alt="">#}
-        {#            </div>#}
+
         {#            <div class="divider"></div>#}
         {#        </div>#}
         {#    </div>#}
-        <div class="col s12 l3 teal">
+        <div class="col s12 l4 ">
 
+            <div class="row">
+                <div class="col s10 offset-s1">
+                    <div class="card ">
+                        <div class="card-image">
+                            <img class="responsive-img" src="{{ user.profile.image.url }}" alt="">
+                        </div>
+                        <h4 class=" center deep-purple-text text-darken-1"> @{{ user.username }}</h4>
+                        <!-- <h4 class="blue-text text-darken-4">User Info</h4> -->
+                        <div class="card-content ">
+                            {#                    <p class=" thintext3 ">{{ userd.first_name }} {{ userd.last_name }}</p>#}
+                            {#                    <p>{{ userd.profile.get_gender_display }} </p>#}
 
-            <h4 class=" center deep-purple-text text-darken-1"> @{{ userd.username }}</h4>
-            <!-- <h4 class="blue-text text-darken-4">User Info</h4> -->
-            <div class="thintext4 white-text flow-text">
-                <p class=" thintext3 white-text flow-text">{{ userd.first_name }} {{ userd.last_name }}</p>
-                <p>{{ userd.profile.get_gender_display }} </p>
-                <p>Registration Number:{{ userd.regnum }}</p>
-                <p> From: {{ userd.profile.country }} </p>
+                            <p> From: {{ user.email }} </p>
+                            <p> Bio:{{ user.bio }} </p>
+                            {% if user.is_authenticated %}
+                                {% if userd == user %}
 
-                <p> Bio:{{ userd.profile.bio }} </p>
-            </div>
-
-            {% if user.is_authenticated %}
-                {% if userd == user %}
-
-                    <span><a href="#profileEditModal"
-                             class="btn btn-large btn-floating orange modal-trigger right "> <i
-                            class="material-icons">settings</i></a></span>
-                {% endif %}
-                <span><a href="#followerFollowing" class="btn btn-small orange modal-trigger">
+                                    <span><a href="#profileEditModal"
+                                             class="btn btn-large btn-floating orange modal-trigger right "> <i
+                                            class="material-icons">settings</i></a></span>
+                                {% endif %}
+                                <span><a href="#followerFollowing" class="btn btn-small orange modal-trigger">
                                 Followers/Followings</a></span>
 
-                <span><a id="followThisDudeButton" class="btn btn-small orange modal-trigger">
+                                <span><a id="followThisDudeButton" class="btn btn-small orange modal-trigger">
                                 FOLLOW</a></span>
 
-                <span><a id="unfollowThisDudeButton" class="btn btn-small orange modal-trigger">
+                                <span><a id="unfollowThisDudeButton" class="btn btn-small orange modal-trigger">
                                 UNFOLLOW</a></span>
-            {% endif %}
+                            {% endif %}
+                        </div>
 
-            <div class="divider"></div>
+
+                    </div>
+                </div>
+            </div>
+
         </div>
-        <div class="  col s12 l8  ">
+        <div class="divider"></div>
+        <div class="  col s12 l7  ">
             <div class="row">
                 <div class="col s12">
                     <ul class="tabs">
-                        <li class="tab col s3"><a href="#test1">Test 1</a></li>
-                        <li class="tab col s3"><a class="active" href="#test2">Test 2</a></li>
-                        <li class="tab col s3 "><a href="#test3">Disabled Tab</a></li>
-                        <li class="tab col s3"><a href="#test4">Test 4</a></li>
+                        <li class="tab col s3"><a class="active" href="#test1">About</a></li>
+                        <li class="tab col s3"><a href="#test2">Review</a></li>
+                        <li class="tab col s3 "><a href="#test3">More</a></li>
+                        <li class="tab col s3"><a href="#test4">etc</a></li>
                     </ul>
                 </div>
-                {#            <style >#}
-                {#                .goBack{#}
-                {#                    z-index: -1000;#}
-                {#                }#}
-                {##}
-                {#            </style>#}
+
                 <div id="test1" class=" goBack col s12">Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test 1Test
                     1Test 1Test
                     1Test 1Test 1Test 1
@@ -138,10 +139,16 @@
                             <h3> Posts </h3>
                         {% endif %}
                         </div>
+                        <div class="row">
+                            {% for post in posts %}
+                                <div class="col l3">
+                                    {% include 'snippets/courseCard.html' %}
+                                </div>
+                            {% endfor %}
+                        </div>
 
-                        {% for post in posts %}
-                            {% include 'snippets/postCards/postCardMini.html' %}
-                        {% endfor %}
+
+
                     {% else %}
                         <h3>No posts yet</h3>
                     {% endif %}
@@ -151,22 +158,68 @@
 
         </div>
 
-    <div class="content-section">
-    		<form method="POST" enctype="multipart/form-data">
-    			{% csrf_token %}
-    			<fieldset class="form-group">
-    				{{uform|crispy}}
-            {{pform}}
-    			</fieldset>
-    			<div class="form-group">
-    			<button class="btn btn-outline-info" type="submit"> Update </button>
-    			</div>
-    		</form>
-    	</div>
+        <div class="content-section">
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                <fieldset class="form-group">
+                    {{ uform|crispy }}
+                    {{ pform }}
+                </fieldset>
+                <div class="form-group">
+                    <button class="btn btn-outline-info" type="submit"> Update</button>
+                </div>
+            </form>
+        </div>
     </div>
 
     {% include 'users/snippets/profileEditModal.html' %}
     {% include 'users/snippets/followersFollowingModal.html' %}
 
 
+
 {% endblock content %}
+{% block script %}
+    <script>$(document).ready(function () {
+        $(document).on('click', '#followThisDudeButton', function (event) {
+            console.log('followThisDudeButton ');
+            event.preventDefault();
+            // var pk = $(this).attr('value');
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'follow' user %}",
+                data: {
+                    'csrfmiddlewaretoken': '{{  csrf_token }}'
+                },
+                success: function (response) {
+
+                    console.log('Success');
+
+                },
+                error: function (rs, e) {
+                    console.log(rs.responseText);
+                }
+            });
+        });
+        $(document).on('click', '#unfollowThisDudeButton', function (event) {
+            console.log('unfollowThisDudeButton ');
+            event.preventDefault();
+            // var pk = $(this).attr('value');
+            $.ajax({
+                type: 'POST',
+                url: "{% url 'unfollow' user %}",
+                data: {
+                    'csrfmiddlewaretoken': '{{  csrf_token }}'
+                },
+                success: function (response) {
+
+                    console.log('Success');
+
+                },
+                error: function (rs, e) {
+                    console.log(rs.responseText);
+                }
+            });
+        });
+        $('.tabs').tabs();
+    });</script>
+{% endblock script %}
