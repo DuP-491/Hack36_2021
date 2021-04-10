@@ -1,6 +1,6 @@
 {% extends "Blog/base.html" %}
 {% load crispy_forms_tags %}
-
+{% load materializecss %}
 {% block content %}
     <div class="row">
         <div class="col s12 m8 offset-m2 l6 offset-l3">
@@ -17,7 +17,7 @@
                     {% csrf_token %}
                     <fieldset class="form-group">
                         <legend class="border-bottom mb-4"> Login</legend>
-                        {{ form|crispy }}
+                        {{ form }}
                     </fieldset>
                     <div class="form-group">
                         <button class="btn btn-outline-info" type="submit"> Log In</button>

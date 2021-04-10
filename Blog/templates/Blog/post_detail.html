@@ -73,9 +73,16 @@
             <div id="video-section">
                 <div class="row">
                     <div class="col s9  "> {% include 'Blog/video_play.html' %}</div>
-                    <div class="col s3  "><div class="card">
+                    <div class="col s3  ">
+                        <div class="card">
+                            <div class="card-title">
+                                {{ cvideo.title }}
+                            </div>
+                            <div class="card-body">
 
-                    </div> </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
             </div>
@@ -252,8 +259,8 @@
                 url: '{% url "play-video" %}',
                 data: {'id': vid,},
                 success: function (response) {
-                    console.log(response['html'])
-                    $('#video-section').html(response['html'])
+                    console.log(response['html']);
+                    $('#video-section').html(response['html']);
                 },
                 error: function (rs, e) {
                     console.log(rs.responseText);
