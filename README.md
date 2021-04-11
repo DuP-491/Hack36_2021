@@ -6,6 +6,7 @@
 ## Introduction:
   An interactive web application that aims to solve the problem of lack of importance given to vocal education at the schooling level and a platform for those who want to try     out new sets of skills. Our Web app is built on Django framework.
   
+  
 ## Table of Contents:
   * [Features](#ft)
   * [Technology Stack](#tech)
@@ -19,6 +20,8 @@
   2) Review/rating system
   3) Tags feature for the classification of content
   4) User profile including Follow/Unfollow feature
+  5) Location based Content filter.
+
 
 ## Future Prospects :
   1) Virtual currency system
