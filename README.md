@@ -11,6 +11,7 @@
   * [Features](#ft)
   * [Technology Stack](#tech)
   * [Contributors](#contributor)
+  * [video/ppt Link](#vp)
 
 
 
@@ -47,6 +48,12 @@
 * [Siddhesh Sunil Patil](https://github.com/siddheshpatil777)
 * [Diptarag Ray Chaudhuri](https://github.com/diptarag1)
 * [Shreyas Kolhatkar](https://github.com/shreyas2-bit)
+
+
+
+<a name="vp"></a>
+## Video/ppt link
+https://drive.google.com/drive/folders/1a2UAZOONyZMVKgy_WpiNXw51TQ_jUNIw?usp=sharing
 
 
 
